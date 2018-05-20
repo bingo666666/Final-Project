@@ -1,0 +1,33 @@
+#include <opencv2/opencv.hpp>
+
+using namespace std;
+using namespace cv;
+
+int main()
+{
+    Mat source, scaleD, scaleU;
+    source = imread(".....");
+    if(!source.data )
+    {
+      printf( " No image data \n " );
+      return -1;
+    }
+    double scaleX = 0.6;
+    double scaleY = 0.6;
+
+	resize(source,scaleD,Size(cvRound(scaleX*source.cols), cvRound(scaleY*source.rows)), scaleX, scaleY, INTER_LINEAR);
+	resize(source,scaleU,Size(cvRound(1.8*source.cols), cvRound(1.8*source.rows)), 1.8, 1.8, INTER_LINEAR);
+	Mat crop=source(Range(0,150),Range(0,150));
+
+	namedWindow("source",1);
+	namedWindow("scaleD",1);
+	namedWindow("scaleU",1);
+	namedWindow("crop",1);
+	imshow("source",source);
+	imshow("scaleD",scaleD);
+	imshow("scaleU",scaleU);
+    imshow("crop",crop);
+
+	waitKey(0);
+    return 0;
+}
